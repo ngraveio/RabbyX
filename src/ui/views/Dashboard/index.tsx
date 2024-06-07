@@ -12,10 +12,7 @@ import {
   WALLET_BRAND_CONTENT,
   EVENTS,
 } from 'consts';
-import { 
-  KEYRING_ICONS,
-  KEYRING_ICONS_WHITE
-} from 'ui/assets-const';
+import { KEYRING_ICONS, KEYRING_ICONS_WHITE } from 'ui/assets-const';
 import QRCode from 'qrcode.react';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -538,7 +535,7 @@ const Dashboard = () => {
               </div>
             </div>
             <div className="qrcode-container">
-              <QRCode value={currentAccount?.address} size={100} />
+              <QRCode value={currentAccount?.address ?? ''} size={100} />
             </div>
           </div>
         </div>
