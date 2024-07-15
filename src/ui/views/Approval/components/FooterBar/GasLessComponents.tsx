@@ -7,25 +7,52 @@ import styled from 'styled-components';
 import clsx from 'clsx';
 import LogoImage from 'ui/assets/sign/tx/rabby.svg';
 
-import { ReactComponent as RcIconLink } from 'ui/assets/sign/tx/link.svg';
-import { openInTab } from '@/ui/utils';
+import { ReactComponent as RcIconReason } from '@/ui/assets/sign/tx/question-cc.svg';
 
-export function GasLessNotEnough({ url }: { url?: string }) {
+// import { ReactComponent as RcIconLink } from 'ui/assets/sign/tx/link.svg';
+import { openInTab } from '@/ui/utils';
+import { TooltipWithMagnetArrow } from '@/ui/component/Tooltip/TooltipWithMagnetArrow';
+
+export function GasLessNotEnough({
+  url,
+  gasLessFailedReason,
+}: {
+  url?: string;
+  gasLessFailedReason?: string;
+}) {
   const { t } = useTranslation();
+  const [
+    hoverGasLessFailedReason,
+    setHoverGasLessFailedReason,
+  ] = React.useState(false);
   return (
     <div
       onClick={() => {
         url && openInTab(url);
       }}
       className="security-level-tip bg-r-neutral-card2 text-r-neutral-card2 mt-[15px]"
+      onMouseEnter={() => setHoverGasLessFailedReason(true)}
+      onMouseLeave={() => setHoverGasLessFailedReason(false)}
     >
       <RcIconGas
         viewBox="0 0 16 16"
         className="w-16 h-16 mr-4 text-r-neutral-title-1"
       />
-      <span className="flex-1 text-r-neutral-title1 inline-flex gap-4 items-center">
+      <span className="relative flex-1 text-r-neutral-title1 inline-flex gap-4 items-center">
         {t('page.signFooterBar.gasless.unavailable')}
         {/* <RcIconLink /> */}
+
+        {gasLessFailedReason ? (
+          <TooltipWithMagnetArrow
+            visible={hoverGasLessFailedReason}
+            title={gasLessFailedReason}
+            className="rectangle w-[max-content]"
+            placement="top"
+            arrowPointAtCenter
+          >
+            <RcIconReason viewBox="0 0 12 12" className="w-14 h-14" />
+          </TooltipWithMagnetArrow>
+        ) : null}
       </span>
     </div>
   );

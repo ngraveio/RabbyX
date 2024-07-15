@@ -117,6 +117,7 @@ import { getKeyringBridge, hasBridge } from '../service/keyring/bridge';
 import { syncChainService } from '../service/syncChain';
 import { matomoRequestEvent } from '@/utils/matomo-request';
 import { BALANCE_LOADING_TIMES } from '@/constant/timeout';
+import { IExtractFromPromise } from '@/ui/utils/type';
 import { getMintRabbyContractAddress } from '@/constant/mint-rabby/mint-rabby-abi';
 import { initMintRabbyContract } from './mint-rabby';
 import { validateConfirmation } from './safe';
@@ -187,7 +188,10 @@ export class WalletController extends BaseController {
     return whitelistService.isWhitelistEnabled();
   };
 
-  requestETHRpc = (data: { method: string; params: any }, chainId: string) => {
+  requestETHRpc = <T = any>(
+    data: { method: string; params: any },
+    chainId: string
+  ): Promise<IExtractFromPromise<T>> => {
     return providerController.ethRpc(
       {
         data,
@@ -2144,12 +2148,18 @@ export class WalletController extends BaseController {
     return this._lastGetAddress;
   };
 
-  clearAddressPendingTransactions = (address: string) => {
-    transactionHistoryService.clearPendingTransactions(address);
-    transactionWatcher.clearPendingTx(address);
-    transactionBroadcastWatchService.clearPendingTx(address);
+  clearAddressPendingTransactions = (address: string, chainId?: number) => {
+    transactionHistoryService.clearPendingTransactions(address, chainId);
+    transactionWatcher.clearPendingTx(address, chainId);
+    transactionBroadcastWatchService.clearPendingTx(address, chainId);
+
     sessionService.broadcastToDesktopOnly('clearPendingTransactions', null);
 
+    return;
+  };
+
+  clearAddressTransactions = (address: string) => {
+    transactionHistoryService.removeList(address);
     return;
   };
 
@@ -3883,6 +3893,29 @@ export class WalletController extends BaseController {
       ids: chainList.join(','),
     });
     return res;
+  };
+
+  hasPrivateKeyInWallet = async (address: string) => {
+    let pk: any = null;
+    try {
+      pk = await keyringService.getKeyringForAccount(
+        address,
+        KEYRING_TYPE.SimpleKeyring
+      );
+    } catch (e) {
+      // just ignore the error
+    }
+    let mnemonic: any = null;
+    try {
+      mnemonic = await keyringService.getKeyringForAccount(
+        address,
+        KEYRING_TYPE.HdKeyring
+      );
+    } catch (e) {
+      // just ignore the error
+    }
+    if (!pk && !mnemonic) return false;
+    return pk?.type || mnemonic?.type;
   };
 
   syncMainnetChainList = syncChainService.syncMainnetChainList;

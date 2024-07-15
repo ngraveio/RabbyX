@@ -4627,10 +4627,10 @@
     sinon-chrome "^3.0.1"
     webextension-polyfill "0.7.0"
 
-"@rabby-wallet/rabby-api@0.7.14-beta.2":
-  version "0.7.14-beta.2"
-  resolved "https://registry.yarnpkg.com/@rabby-wallet/rabby-api/-/rabby-api-0.7.14-beta.2.tgz#e0e02f36ca7ce96d301f1bebfa99753ed8c7abd4"
-  integrity sha512-qSdc61Ll4PIi0ALUsQzbpMkp9TRcA0qz8mwtuGDnhtBdmTCnKmvM3Qoms0fpKR4UY7jL9LgBsrwcBgZRHjJwzA==
+"@rabby-wallet/rabby-api@0.7.18":
+  version "0.7.18"
+  resolved "https://registry.yarnpkg.com/@rabby-wallet/rabby-api/-/rabby-api-0.7.18.tgz#0d5a76684d24be4b3b4ee3831954951eb985299c"
+  integrity sha512-3/nMI6zdfMjOZGEjZezx60Y8jPT2Jzo08PU2fdEfgd5adiSeXT+c2gJe1drpFcGSxFbG5Y9oqoxkYJ7kpM1vBQ==
   dependencies:
     "@rabby-wallet/rabby-sign" "^0.3.3"
     axios "^0.27.2"
@@ -4639,10 +4639,10 @@
     lodash "^4.17.21"
     qss "^2.0.3"
 
-"@rabby-wallet/rabby-security-engine@1.1.20":
-  version "1.1.20"
-  resolved "https://registry.yarnpkg.com/@rabby-wallet/rabby-security-engine/-/rabby-security-engine-1.1.20.tgz#499d94a8f2d7a6b34b53ba6f3cc2469c4e5d0823"
-  integrity sha512-6/IZ2zSQkd5ttVYbX5M/z3IxqxfXyxBHA22FNuA6f77NSvI6AyOnceht1CGNC177fnYkXKeYNWAChuN60kgFZQ==
+"@rabby-wallet/rabby-security-engine@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@rabby-wallet/rabby-security-engine/-/rabby-security-engine-2.0.2.tgz#b3d95c060b2fd6070729a41d2e74d132c41b69d8"
+  integrity sha512-7rRARUY3arg75x3g6ZdrQwTA4Sh338Nmpcbuqxh7RbFjrSyME2Nvbq9hVKSyqHzpD6ED5rU+Skmfr9Qn2jBWZQ==
 
 "@rabby-wallet/rabby-sign@^0.3.3":
   version "0.3.3"
